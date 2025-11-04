@@ -118,9 +118,13 @@ header p {
     font-size: 12px;
 }
 
+#map-legend svg {
+    display: block;
+}
+
 #detail-summary {
-    margin-top: 8px;
-    font-size: 13px;
+    margin-top: 10px;
+    font-size: 14px;
     color: #444;
 }
 

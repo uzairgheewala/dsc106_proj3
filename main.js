@@ -453,54 +453,75 @@ function renderChoroplethLegend(color, maxVal, mode) {
   const legendRoot = d3.select("#map-legend");
   legendRoot.selectAll("*").remove();
 
-  const legendWidth = 220;
-  const legendHeight = 10;
-  const n = 80;
-
-  const canvas = legendRoot
-    .append("canvas")
-    .attr("width", n)
-    .attr("height", 1)
-    .style("width", legendWidth + "px")
-    .style("height", legendHeight + "px");
-
-  const ctx = canvas.node().getContext("2d");
-  for (let i = 0; i < n; ++i) {
-    const t = i / (n - 1);
-    const value = t * maxVal;
-    ctx.fillStyle = color(value);
-    ctx.fillRect(i, 0, 1, 1);
-  }
+  const legendWidth = 300;
+  const legendHeight = 55;  // more vertical space
 
   const svg = legendRoot
     .append("svg")
     .attr("width", legendWidth)
-    .attr("height", 24);
+    .attr("height", legendHeight);
 
-  const scale = d3.scaleLinear().domain([0, maxVal]).range([0, legendWidth]);
+  const gradId = `legend-gradient-${mode}`;
+
+  // gradient definition
+  const defs = svg.append("defs");
+  const gradient = defs
+    .append("linearGradient")
+    .attr("id", gradId)
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0%")
+    .attr("y2", "0%");
+
+  const stops = d3.range(0, 1.0001, 0.1);
+  stops.forEach(t => {
+    gradient
+      .append("stop")
+      .attr("offset", `${t * 100}%`)
+      .attr("stop-color", color(t * maxVal));
+  });
+
+  // color bar
+  svg
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", 8)              // slightly lower
+    .attr("width", legendWidth)
+    .attr("height", 10)
+    .attr("rx", 3)
+    .attr("fill", `url(#${gradId})`);
+
+  // axis under the bar
+  const scale = d3
+    .scaleLinear()
+    .domain([0, maxVal])
+    .range([0, legendWidth]);
+
   const axis = d3
     .axisBottom(scale)
     .ticks(4)
-    .tickFormat(d => {
-      if (mode === "baseline") return d.toFixed(0) + "%";
-      return d.toFixed(1) + "M";
-    });
+    .tickSize(4)
+    .tickFormat(d =>
+      mode === "baseline" ? d.toFixed(0) + "%" : d.toFixed(1) + "M"
+    );
 
   svg
     .append("g")
-    .attr("transform", `translate(0,10)`)
+    .attr("transform", "translate(0,26)")  // move axis down
     .call(axis)
-    .call(g => g.select(".domain").remove());
+    .call(g => g.select(".domain").remove())
+    .call(g => g.selectAll("text").attr("font-size", 10));
 
   const labelText =
     mode === "baseline"
       ? "Share of people living near nuclear plants"
       : "New people living near nuclear plants since previous decade";
 
-  legendRoot
-    .append("div")
-    .style("font-size", "11px")
-    .style("margin-top", "2px")
+  svg
+    .append("text")
+    .attr("x", 0)
+    .attr("y", 54)             // well below axis ticks
+    .attr("font-size", 11)
     .text(labelText);
 }
 
