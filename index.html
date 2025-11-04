@@ -3,9 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Living Near Nuclear Power Plants, 1990–2010</title>
+    <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
+    <div id="app">
+        <header>
+            <h1>Who lives near nuclear power plants?</h1>
+            <!-- <p>
+                Explores how the share of people living near nuclear plants varies across countries
+                and how it changed from 1990 to 2010.
+            </p> -->
+        </header>
     
+        <section id="controls-row">
+            <div class="control">
+                <label for="year-slider">Year</label>
+                <div class="control-inline">
+                    <input id="year-slider" type="range" min="1990" max="2010" step="10" />
+                    <span id="year-label">2010</span>
+                    <button id="play-btn" type="button">Play ▶</button>
+                </div>
+            </div>
+    
+            <div class="control">
+                <label for="buffer-select">Distance from plant</label>
+                <select id="buffer-select">
+                    <option value="30">30 km</option>
+                    <option value="75">75 km</option>
+                    <option value="300">300 km</option>
+                </select>
+            </div>
+    
+            <div class="control">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="toggle-plants" />
+                    Show plant hotspots
+                </label>
+            </div>
+        </section>
+    
+        <section id="main-row">
+            <div id="map-container">
+                <h2>Global exposure map</h2>
+                <svg id="map-svg" aria-label="World map of exposure"></svg>
+                <div id="map-legend"></div>
+            </div>
+    
+            <div id="detail-container">
+                <h2 id="detail-title">Click a country to see its exposure profile</h2>
+                <svg id="detail-svg" aria-label="Country exposure by distance"></svg>
+                <div id="detail-summary"></div>
+            </div>
+        </section>
+    </div>
+    
+    <div id="tooltip" class="tooltip" style="display:none;"></div>
+    
+    <script type="module" src="./main.js"></script>
 </body>
 </html>

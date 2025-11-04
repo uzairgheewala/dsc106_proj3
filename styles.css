@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    background: #f7f7f8;
+    color: #222;
+}
+
+#app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 20px 32px;
+}
+
+header h1 {
+    margin: 0 0 6px;
+}
+
+header p {
+    margin: 0 0 14px;
+    color: #555;
+    max-width: 60rem;
+}
+
+#controls-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-end;
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.control {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+}
+
+.control-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#year-slider {
+    width: 180px;
+}
+
+#play-btn {
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+#play-btn:hover {
+    background: #f0f0f0;
+}
+
+.checkbox-inline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#main-row {
+    /* display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+#map-container,
+#detail-container {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+#map-container h2,
+#detail-container h2 {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+#map-svg,
+#detail-svg {
+    width: 100%;
+    height: auto;
+}
+
+/* Fix SVG sizing via viewBox in JS */
+#map-svg {
+    border-radius: 8px;
+}
+
+#detail-svg {
+    border-radius: 8px;
+}
+
+#map-legend {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+#detail-summary {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #444;
+}
+
+/* Tooltip */
+.tooltip {
+    position: absolute;
+    pointer-events: none;
+    padding: 6px 8px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.78);
+    color: #fff;
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    #main-row {
+        grid-template-columns: 1fr;
+    }
+}
