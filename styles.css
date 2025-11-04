@@ -110,6 +110,7 @@ header p {
 
 #detail-svg {
     border-radius: 8px;
+    margin-top: 4px;
 }
 
 #map-legend {
